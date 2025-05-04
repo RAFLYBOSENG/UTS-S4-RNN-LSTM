@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analisis Sentimen & Emosi</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wordcloud2.js/1.1.2/wordcloud2.min.js"></script>
+</head>
+<body class="bg-light">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-custom mb-0">
+      <div class="container">
+        <a class="navbar-brand fw-bold" href="/">Dashboard</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/">Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="/analisis">Analisis</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/daftar-komentar">Daftar Komentar</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container py-5">
+        <div class="row mb-4">
+            <div class="col-12 text-center">
+                <h2 class="fw-bold mb-2">Analisis Sentimen & Emosi</h2>
+                <p class="lead">Visualisasi detail distribusi sentimen dan emosi dari komentar sosial media</p>
+            </div>
+        </div>
+        {% if error_message %}
+        <div class="alert alert-danger shadow-lg" role="alert">
+            <strong>Error:</strong> {{ error_message }}
+        </div>
+        {% endif %}
+        <div class="row justify-content-center mb-4">
+            <div class="col-md-6 mb-4">
+                <div class="card shadow-lg h-100" data-tilt>
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">Distribusi Sentimen</h5>
+                        <div id="chart-sentimen" style="min-height:350px;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="card shadow-lg h-100" data-tilt>
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">Distribusi Emosi</h5>
+                        <div id="chart-emosi" style="min-height:350px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            {% for wc in wordcloud_files %}
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-lg h-100" data-tilt>
+                    <div class="card-body text-center">
+                        <h5 class="card-title mb-3">Wordcloud {{ wc.label }}</h5>
+                        <img src="{{ url_for('static', filename=wc.file) }}" alt="Wordcloud {{ wc.label }}" class="img-fluid" style="max-height:350px;">
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <script>
+        // Pie chart sentimen
+        var sentimen = {{ graphJSON_sentimen | safe }};
+        if (sentimen) {
+            Plotly.newPlot('chart-sentimen', sentimen.data, sentimen.layout);
+        }
+        // Bar chart emosi
+        var emosi = {{ graphJSON_emosi | safe }};
+        if (emosi) {
+            Plotly.newPlot('chart-emosi', emosi.data, emosi.layout);
+        }
+        // 3D tilt
+        VanillaTilt.init(document.querySelectorAll("[data-tilt]"), {
+            max: 5,
+            speed: 400,
+            glare: true,
+            "max-glare": 0.5,
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

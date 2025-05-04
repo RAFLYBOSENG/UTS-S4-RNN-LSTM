@@ -1,0 +1,126 @@
+body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+}
+
+.gradient-header {
+    background: linear-gradient(90deg, #27446b 0%, #3498db 100%);
+    color: #fff;
+    padding: 60px 0 40px 0;
+    border-radius: 0 0 40px 40px;
+    margin-bottom: 40px;
+    box-shadow: 0 8px 32px rgba(39,68,107,0.15);
+}
+
+.stat-card {
+    min-width: 150px;
+    min-height: 120px;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.12), 0 1.5px 6px rgba(52,152,219,0.08);
+    margin: 10px 10px 20px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: 500;
+    background: #fff;
+    transition: transform 0.3s cubic-bezier(.4,2,.6,1), box-shadow 0.3s;
+    perspective: 600px;
+}
+.stat-card:hover {
+    transform: translateY(-8px) scale(1.04) rotateY(3deg);
+    box-shadow: 0 8px 32px rgba(52,152,219,0.18), 0 2px 8px rgba(39,68,107,0.10);
+}
+.stat-title { font-size: 1rem; color: #888; }
+.stat-value { font-size: 2.2rem; font-weight: bold; }
+.stat-positif { color: #27ae60; }
+.stat-netral { color: #2980b9; }
+.stat-negatif { color: #e74c3c; }
+.stat-sedih { color: #8e44ad; }
+.stat-marah { color: #f39c12; }
+.stat-takut { color: #3498db; }
+
+.navbar-custom {
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    border-bottom: 1.5px solid #e3eaf1;
+    z-index: 10;
+}
+.navbar-custom .nav-link.active {
+    font-weight: bold;
+    color: #27446b !important;
+    text-shadow: 0 2px 8px rgba(52,152,219,0.08);
+}
+.dashboard-section {
+    margin-top: -60px;
+}
+.card {
+    border: none;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s cubic-bezier(.4,2,.6,1);
+    animation: fadeIn 0.6s ease-out forwards;
+}
+.card:hover {
+    transform: translateY(-5px) scale(1.01);
+}
+.chart-container, #chart-sentimen, #chart-emosi {
+    min-height: 400px;
+    width: 100%;
+}
+.text-primary {
+    background: linear-gradient(45deg, #2196F3, #00BCD4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.shadow-lg {
+    box-shadow: 0 1rem 3rem rgba(0,0,0,.175)!important;
+}
+.card-title {
+    color: #1a73e8;
+    font-weight: 600;
+}
+.lead {
+    color: #5f6368;
+}
+/* Animasi untuk elemen-elemen */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+/* Kartu sumber media sosial */
+.card.bg-light {
+    background: linear-gradient(120deg, #f8fafc 60%, #e3eaf1 100%);
+    border: 1.5px solid #e3eaf1;
+    box-shadow: 0 2px 12px rgba(52,152,219,0.07);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.card.bg-light:hover {
+    transform: scale(1.04) rotateY(2deg);
+    box-shadow: 0 8px 32px rgba(52,152,219,0.13);
+}
+.btn-primary {
+    background: linear-gradient(90deg, #3498db 60%, #27446b 100%);
+    border: none;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 8px rgba(52,152,219,0.10);
+    transition: background 0.3s, box-shadow 0.3s;
+}
+.btn-primary:hover {
+    background: linear-gradient(90deg, #27446b 0%, #3498db 100%);
+    box-shadow: 0 4px 16px rgba(52,152,219,0.18);
+}
+/* Responsif untuk layar kecil */
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+    .chart-container, #chart-sentimen, #chart-emosi {
+        min-height: 300px;
+    }
+    .gradient-header { padding: 40px 0 20px 0; }
+    .dashboard-section { margin-top: -30px; }
+}
